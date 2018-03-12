@@ -5,18 +5,6 @@ import json
 ip_server = "127.0.0.1"
 port_server = 7777
 
-def get_mahasiswa():
-    #kirim req GET dengan URL "/mahasiswa"
-    #inisiasi koneksi ke server
-    conn = http.client.HTTPConnection(ip_server, port=port_server)
-
-    #kirim req ke server
-    conn.request('GET', '/mahasiswa')
-
-    #baca responese
-    response = conn.getresponse().read()
-    print( response.decode('utf-8') )
-
 def tambah_mahasiswa():
     #kirim req GET dengan URL "/mahasiswa"
     #inisiasi koneksi ke server
@@ -59,14 +47,39 @@ def hapus_mahasiswa():
     conn = http.client.HTTPConnection(ip_server, port=port_server)
 
     #kirim req POST /mahasiswa
-    conn.request('DELETE', '/mahasiswa/123')
+    conn.request('DELETE', '/mahasiswa/456')
 
     #dapatkan response
     responese = conn.getresponse().read()
     print(responese.decode('utf-8'))
 
-#tambah_mahasiswa()
-get_mahasiswa()
+def getAll_mahasiswa():
+    #kirim req GET dengan URL "/mahasiswa"
+    #inisiasi koneksi ke server
+    conn = http.client.HTTPConnection(ip_server, port=port_server)
+
+    #kirim req ke server
+    conn.request('GET', '/mahasiswa')
+
+    #baca responese
+    response = conn.getresponse().read()
+    print( response.decode('utf-8') )
+
+def get_mahasiswa():
+    #kirim req GET dengan URL "/mahasiswa"
+    #inisiasi koneksi ke server
+    conn = http.client.HTTPConnection(ip_server, port=port_server)
+
+    #kirim req ke server
+    conn.request('GET', '/mahasiswa/456')
+
+    #baca responese
+    response = conn.getresponse().read()
+    print( response.decode('utf-8') )
 
 #tambah_mahasiswa()
-#get_mahasiswa()
+getAll_mahasiswa()
+ubah_mahasiswa()
+#hapus_mahasiswa()
+#tambah_mahasiswa()
+getAll_mahasiswa()
