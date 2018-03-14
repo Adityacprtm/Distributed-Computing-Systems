@@ -28,7 +28,7 @@ def update_mahasiswa():
     #definisi body
     mahasiswa_baru = {'nim': 111, 'nama': 'Cillesen', 'prodi': 'PTI'}
     #kirim req POST /mahasiswa
-    conn.request('PUT', '/mahasiswa/123', body=json.dumps(mahasiswa_baru), headers=header)
+    conn.request('PUT', '/mahasiswa/111', body=json.dumps(mahasiswa_baru), headers=header)
     #dapatkan response
     responese = conn.getresponse().read()
     print(responese.decode('utf-8'))
@@ -58,9 +58,15 @@ def get_mahasiswa():
     #inisiasi koneksi ke server
     conn = http.client.HTTPConnection(ip_server, port=port_server)
     #kirim req ke server
-    conn.request('GET', '/mahasiswa/456')
+    conn.request('GET', '/mahasiswa/111')
     #baca responese
     response = conn.getresponse().read()
     print( response.decode('utf-8') )
 
+#COMMAND
+getAll_mahasiswa()
+#get_mahasiswa()
+add_mahasiswa()
+update_mahasiswa()
+#delete_mahasiswa()
 getAll_mahasiswa()

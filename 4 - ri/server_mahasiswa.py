@@ -1,5 +1,6 @@
 #import library flask, request dan jsonify
 from flask import Flask, request, jsonify, abort
+import json
 
 #inisiasi app flask sebagai server
 app = Flask(__name__)
@@ -19,6 +20,11 @@ data_mahasiswa = [
         "nim" : 789,
         "nama" : "Pique",
         "prodi" : "SI"
+    },
+    {
+        "nim": 111,
+        "nama": "Andre",
+        "prodi": "IPA"
     }
 ]
 
@@ -47,32 +53,30 @@ def add_mahasiswa():
 #fungsi update mahasiswa method PUT URL /mahasiswa/nim
 @app.route('/mahasiswa/<int:nim>', methods=['PUT'])
 def update_mahasiswa(nim):
-    data = [data for data in data_mahasiswa if data['nim'] == nim]
-    #jika req yang tidak sesuai response 400 (bad req)
-    if len(data) == 0:
-        abort(404)
-    if not request.json:
-        abort(400)
-    if 'nim' in request.json and type(request.json['nim']) != int:
-        abort(400)
-    if 'nama' in request.json and type(request.json['nama']) is not str:
-        abort(400)
-    if 'prodi' in request.json and type(request.json['prodi']) is not str:
-        abort(400)
-    data[0]['nim'] = nim
-    data[0]['nama'] = request.json.get('nama', data[0]['nama'])
-    data[0]['prodi'] = request.json.get('prodi', data[0]['prodi'])
-    return jsonify({'response':'Success Update'})
-
+    #perulangan sebanyak index json data_mahasiswa
+    for i in range(0, len(data_mahasiswa)):
+        #pengecekan nim yang dicari dengan nim pd data_mahasiswa
+        if nim == data_mahasiswa[i]['nim']:
+            #update data mahasiswa
+            data_mahasiswa[i]['nim'] = request.json['nim']
+            data_mahasiswa[i]['nama'] = request.json['nama']
+            data_mahasiswa[i]['prodi'] = request.json['prodi']
+            return jsonify({'data_mahasiswa': data_mahasiswa})
+    #jika nim tidak ditemukan
+    abort(404)
+    
 #fungsi delete mahasiswa method DELETE URL /mahasiswa/nim
 @app.route('/mahasiswa/<int:nim>', methods=['DELETE'])
 def delete_mahasiswa(nim):
-    data = [data for data in data_mahasiswa if data['nim'] == nim]
-    #jika req yang tidak sesuai response 400 (bad req)
-    if len(data) == 0:
-        abort(404)
-    data_mahasiswa.remove(data[0])
-    return jsonify({'response':'Success Delete'})
+    #perulangan sebanyak index json data_mahasiswa
+    for i in range(0, len(data_mahasiswa)):
+        #pengecekan nim yang dicari dengan nim pd data_mahasiswa
+        if nim == data_mahasiswa[i]['nim']:
+            #hapus data_mahasiswa index ke i
+            data_mahasiswa.remove(data_mahasiswa[i])
+            return jsonify({'response': 'Success Delete'})
+    #jika nim tidak ditemukan
+    abort(404)
 
 #fungsi yang akan handle method GET dengan URL '/mahasiswa'
 @app.route('/mahasiswa', methods=['GET'])
@@ -83,13 +87,12 @@ def getAll_mahasiswa():
 @app.route('/mahasiswa/<int:nim>', methods=['GET'])
 #kembalikan data mahasiswa tertentu method GET URL /mahasiswa/nim
 def get_mahasiswa(nim):
-    data = [data for data in data_mahasiswa if data['nim'] == nim]
-    #jika url yg dimasukan tidak ditemukan di server, response 404
-    if len(data) == 0:
-        abort(404)
-    return jsonify({'data_mahasiswa': data[0]})
+    for i in range(0, len(data_mahasiswa)):
+        if nim == data_mahasiswa[i]['nim']:
+            return jsonify({'data_mahasiswa': data_mahasiswa[i]})
+    #jika nim tidak ditemukan
+    abort(404)
 
 #jalankan server flask
 if __name__ == '__main__':
     app.run(port=7777)
-    
