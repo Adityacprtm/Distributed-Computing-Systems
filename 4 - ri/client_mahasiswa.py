@@ -38,7 +38,7 @@ def delete_mahasiswa():
     #inisiasi koneksi ke server
     conn = http.client.HTTPConnection(ip_server, port=port_server)
     #kirim req POST /mahasiswa
-    conn.request('DELETE', '/mahasiswa/111')
+    conn.request('DELETE', '/mahasiswa/210')
     #dapatkan response
     responese = conn.getresponse().read()
     print(responese.decode('utf-8'))
@@ -64,9 +64,9 @@ def get_mahasiswa():
     print( response.decode('utf-8') )
 
 #COMMAND
-getAll_mahasiswa()
+#getAll_mahasiswa()
 #get_mahasiswa()
-add_mahasiswa()
-update_mahasiswa()
-#delete_mahasiswa()
-getAll_mahasiswa()
+#add_mahasiswa()
+#update_mahasiswa()
+delete_mahasiswa()
+#getAll_mahasiswa()

@@ -5,28 +5,8 @@ import json
 #inisiasi app flask sebagai server
 app = Flask(__name__)
 
-data_mahasiswa = [
-    {
-        "nim" : 123,
-        "nama" : "Messi",
-        "prodi" : "TIF"
-    },
-    {
-        "nim" : 456,
-        "nama" : "Iniesta",
-        "prodi" : "TEKKOM"
-    },
-    {
-        "nim" : 789,
-        "nama" : "Pique",
-        "prodi" : "SI"
-    },
-    {
-        "nim": 111,
-        "nama": "Andre",
-        "prodi": "IPA"
-    }
-]
+with open('data_mahasiswa.json') as json_data:
+    data_mahasiswa = json.load(json_data)
 
 #fungsi index method GET URL /
 @app.route('/', methods=['GET'])
@@ -46,7 +26,10 @@ def add_mahasiswa():
         'prodi': request.json['prodi']
     }
     #tambahkan ke list data_mahasiswa
+    #data_mahasiswa.update(mahasiswa_baru)
     data_mahasiswa.append(mahasiswa_baru)
+    with open('data_mahasiswa.json', 'w') as f:
+        json.dump(data_mahasiswa, f)
     #mengembalikan value mahasiswa baru
     return jsonify({'data mahasiswa baru': mahasiswa_baru}), 201
 
@@ -61,6 +44,8 @@ def update_mahasiswa(nim):
             data_mahasiswa[i]['nim'] = request.json['nim']
             data_mahasiswa[i]['nama'] = request.json['nama']
             data_mahasiswa[i]['prodi'] = request.json['prodi']
+            with open('data_mahasiswa.json', 'w') as f:
+                json.dump(data_mahasiswa[i], f)
             return jsonify({'data_mahasiswa': data_mahasiswa})
     #jika nim tidak ditemukan
     abort(404)
@@ -74,6 +59,8 @@ def delete_mahasiswa(nim):
         if nim == data_mahasiswa[i]['nim']:
             #hapus data_mahasiswa index ke i
             data_mahasiswa.remove(data_mahasiswa[i])
+            with open('data_mahasiswa.json', 'w') as f:
+                json.dump(data_mahasiswa, f)
             return jsonify({'response': 'Success Delete'})
     #jika nim tidak ditemukan
     abort(404)

@@ -6,6 +6,9 @@ import paho.mqtt.client as mqtt_client
 #client() disi random oleh broker, bisa diisi sebagai ID
 sub = mqtt_client.Client()
 
+#koneksikan ke broker
+sub.connect("127.0.0.1", 1883)
+
 #fungsi untuk handle msg yg baru masuk
 def handle_message(mqttc, obj, msg):
     #dapatkan topik dan payload
@@ -13,16 +16,14 @@ def handle_message(mqttc, obj, msg):
     payload = msg.payload
     payload = payload.decode('ascii')
     #cetak ke layar
-    print("Topik : " + topic + "    Payload : " + payload)
+    print("Topik : " + topic + " || Payload : " + payload)
 
 #daftarkan fungsi untuk event on_message
 sub.on_message = handle_message
 
-#koneksikan ke broker
-sub.connect("127.0.0.1", 1883)
-
 #subcribe ke seuah topik
-sub.subscribe("/sensor/+/2")
+sub.subscribe("/sensor/#")
+sub.subscribe("/rahasia/#")
 
 #loop forever agar sub tidak mati
 sub.loop_forever()
