@@ -38,11 +38,12 @@ if __name__ == "__main__":
                 print(dt)
             '''
             # Writing Data
-            directory = "Analysis/"
+            directory = "C:/Users/Aditya C. Pratama/Documents/GitHub/Sistem-Terdistribusi/sister/Analysis"
             #fileName = datetime.datetime.now().strftime("%d%m%y") + ".json"
             fileName = "iot_sensor.json"
             jsonData = json.dumps(json.loads(dumps(logs)))
             path = directory+"/"+fileName
+            
             with open(path, "w") as h:
                 h.write(jsonData)
                 

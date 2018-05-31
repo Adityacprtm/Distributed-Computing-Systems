@@ -10,13 +10,11 @@ def on_publish(client, userdata, mid):
 def imaginary_sensors():
     day_list = ["morn", "noon", "night"]
     temp = random.randint(10, 30)
-    opac = random.randint(0, 50)
     ph = random.randint(0, 14)
     hum = abs(temp*(temp/2)-500)
     day = day_list[1 if hum <= 150 else 0 if (hum > 150 and hum < 250) else 2]
     data = {
         "temp": temp,
-        "opac": opac,
         "ph": ph,
         "hum": hum,
         "day": day
