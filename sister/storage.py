@@ -11,10 +11,6 @@ client = MongoClient('mongodb://192.168.56.121:27017/')
 db = client.iot_db
 
 if __name__ == "__main__":
-    
-    strg_ip = "127.0.0.1"
-    strg_port = 7778
-
 
     while 1:
         try:
@@ -38,7 +34,7 @@ if __name__ == "__main__":
                 print(dt)
             '''
             # Writing Data
-            directory = "C:/Users/Aditya C. Pratama/Documents/GitHub/Sistem-Terdistribusi/sister/Analysis"
+            directory = "Analysis"
             #fileName = datetime.datetime.now().strftime("%d%m%y") + ".json"
             fileName = "iot_sensor.json"
             jsonData = json.dumps(json.loads(dumps(logs)))
