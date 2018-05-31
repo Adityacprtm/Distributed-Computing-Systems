@@ -5,6 +5,7 @@ sc = SparkContext.getOrCreate()
 
 # Inisiasi rdd dari file text
 rdd = sc.textFile("file:///data-kuliah/10-spark/ibubudi.txt")
+#rdd = sc.textFile("file:///ibubudi.txt")
 
 # Transform untuk split line
 def split_line(line):
