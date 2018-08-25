@@ -4,7 +4,7 @@ from pyspark import SparkContext
 sc = SparkContext.getOrCreate()
 
 # Inisiasi rdd dari file text
-rdd = sc.textFile("file:///data-kuliah/10-spark/ibubudi.txt")
+rdd = sc.textFile("file:///vagrant/input.txt")
 #rdd = sc.textFile("file:///ibubudi.txt")
 
 # Transform untuk split line
@@ -29,4 +29,4 @@ z = hasil.collect()
 print(z)
 
 # Cetak output ke file
-hasil.saveAsTextFile("file:///data-kuliah/10-spark/hasil_wordcount")
+hasil.saveAsTextFile("file:///vagrant/hasil_wordcount")
