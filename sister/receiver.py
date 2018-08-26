@@ -6,7 +6,7 @@ import struct
 import json
 import datetime
 
-client = MongoClient('mongodb://192.168.56.121:27017/')
+client = MongoClient('mongodb://127.0.0.1:27017/')
 db = client.iot_db
 
 def handle_thread(conn):
